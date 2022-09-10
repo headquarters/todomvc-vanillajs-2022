@@ -54,3 +54,5 @@ export const TodoStore = class extends EventTarget {
         this._save();
     }
 }
+
+export const Todos = new TodoStore('todo-vanillajs-2022');

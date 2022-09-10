@@ -1,7 +1,7 @@
 import { delegate, getURLHash, insertHTML, emptyElement } from './helpers.js';
-import { TodoStore } from './store.js';
+import { Todos } from './store.js';
 
-const Todos = new TodoStore('todo-vanillajs-2022');
+// const Todos = new TodoStore('todo-vanillajs-2022');
 
 const App = {
 	$: {
