@@ -1,4 +1,6 @@
 import { TodoInput } from "./TodoInput.js";
+import { TodoCount } from "./TodoCount.js";
+import { Todos } from "./js/store.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -29,6 +31,8 @@ template.innerHTML = `
       <h1>todos</h1>
       <todo-input></todo-input>
     </header>
+
+    <todo-count></todo-count>
   </section>`;
 
 class TodoApp extends HTMLElement {
@@ -39,6 +43,10 @@ class TodoApp extends HTMLElement {
 
   connectedCallback() {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+    // Todos.addEventListener('save', () => {
+    //   this.shadowRoot.replaceChild(template.content.cloneNode(true), this.shadowRoot.children[0]);
+    // });
   }
 
   disconnectedCallback() {}
