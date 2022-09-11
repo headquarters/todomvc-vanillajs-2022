@@ -41,6 +41,23 @@ template.innerHTML = `
       -moz-osx-font-smoothing: grayscale;
     }  
 
+    .edit {
+      position: relative;
+      margin: 0;
+      width: 100%;
+      font-size: 24px;
+      font-family: inherit;
+      font-weight: inherit;
+      line-height: 1.4em;
+      color: inherit;
+      padding: 6px;
+      border: 1px solid #999;
+      box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }    
+
     .todo-list {
       margin: 0;
       padding: 0;
@@ -157,6 +174,14 @@ template.innerHTML = `
     .todo-list li.editing:last-child {
       margin-bottom: -1px;
     }
+
+    :focus,
+    .toggle:focus + label,
+    .toggle-all:focus + label {
+      box-shadow: 0 0 2px 2px #CF7D7D;
+      outline: 0;
+    }
+    
   </style>
 
   <ul class="todo-list" data-todo="list">${getTodos()}</ul>`;
@@ -187,6 +212,35 @@ export class TodoList extends HTMLElement {
       const todo = Todos.get(item.dataset.id);
       Todos.toggle(todo);
     });
+
+    delegate(list, '[data-todo="label"]', "dblclick", (e) => {
+      const item = e.target.closest('[data-id]');
+      item.classList.add("editing");
+      item.querySelector('[data-todo="edit"]').focus();
+    });
+
+    delegate(list, '[data-todo="edit"]', "keyup", (e) => {
+      const item = e.target.closest('[data-id]');
+      const todo = Todos.get(item.dataset.id);
+      const value = e.target.value;
+			if (e.key === 'Enter' && value) {
+        Todos.update({ ...todo, title: value });
+        return;
+      }
+				
+			if (e.key === 'Escape') {
+				item.querySelector('[data-todo="edit"]').value = todo.title;
+        Todos.revert();
+			}
+    });
+
+    delegate(list, '[data-todo="edit"]', "focusout", (e) => {
+      const item = e.target.closest('[data-id]');
+      const todo = Todos.get(item.dataset.id);
+      const title = item.querySelector('[data-todo="edit"]').value;
+			Todos.update({ ...todo, title });
+    });
+
 	}
 
 	disconnectedCallback() {
