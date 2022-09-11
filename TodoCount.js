@@ -31,14 +31,12 @@ export class TodoCount extends HTMLElement {
 		this.shadowRoot.appendChild(template.content.cloneNode(true));
 
 		Todos.addEventListener("save", () => {
-			console.log("save called", Todos.all("active").length);
-			// "re-renders", but the innerHTML string remains the same so it doesn't update with the correct values
 			this.shadowRoot.querySelector('[data-todo="count"]').innerHTML = getCountString();
 		});
 	}
 
 	disconnectedCallback() {
-		/* do event listeners get cleaned up automatically when the shadowRoot is removed? */
+		// TODO: Todos.removeEventListener("save")
 	}
 }
 
