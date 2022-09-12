@@ -1,11 +1,5 @@
 import { Todos } from "./js/store.js";
 
-const getCountString = () => {
-	return `<strong>${Todos.all("active").length}</strong> item${
-		Todos.all("active").length < 2 ? "" : "s"
-	} left`;
-};
-
 const template = document.createElement("template");
 template.innerHTML = `
   <style>

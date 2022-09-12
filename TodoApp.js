@@ -2,6 +2,9 @@ import { TodoInput } from "./TodoInput.js";
 import { TodoCount } from "./TodoCount.js";
 import { TodoList } from "./TodoList.js";
 import { TodoToggleAll } from "./TodoToggleAll.js";
+import { TodoClearCompleted } from "./TodoClearCompleted.js";
+import { TodoFilter } from "./TodoFilter.js";
+import { getURLHash } from "./js/helpers.js";
 import { Todos } from "./js/store.js";
 
 const template = document.createElement("template");
@@ -70,10 +73,12 @@ template.innerHTML = `
     </header>
     <section class="main" data-todo="main">
       <todo-toggle-all></todo-toggle-all>
-      <todo-list></todo-list>
+      <todo-list filter=${getURLHash()}></todo-list>
     </section>
     <footer class="footer" data-todo="footer">
       <todo-count></todo-count>
+      <todo-filter></todo-filter>
+      <todo-clear-completed></todo-clear-completed>
     </footer>
   </section>`;
 
@@ -83,8 +88,23 @@ class TodoApp extends HTMLElement {
     this.attachShadow({ mode: "open" });
   }
 
+  toggleVisibility() {
+    this.shadowRoot.querySelector('[data-todo="main"').style.display = Todos.all().length > 0 ? "block" : "none";
+    this.shadowRoot.querySelector('[data-todo="footer"').style.display = Todos.all().length > 0 ? "block" : "none";
+  }
+
   connectedCallback() {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+    this.toggleVisibility();
+
+    Todos.addEventListener("save", () => {
+			this.toggleVisibility();
+		});
+
+		window.addEventListener('hashchange', () => {
+      this.shadowRoot.querySelector("todo-list").setAttribute("filter", getURLHash());
+		});
   }
 }
 

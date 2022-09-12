@@ -1,10 +1,10 @@
 import { Todos } from "./js/store.js";
 import { delegate } from "./js/helpers.js";
 
-const getTodos = () => {
+const getTodos = (filter) => {
 	let markup = "";
 
-	Todos.all().forEach((todo) => {
+	Todos.all(filter).forEach((todo) => {
 		markup += `
       <li data-id="${todo.id}" class="${todo.completed ? "completed" : ""}">
         <div class="view">
@@ -184,7 +184,7 @@ template.innerHTML = `
     
   </style>
 
-  <ul class="todo-list" data-todo="list">${getTodos()}</ul>`;
+  <ul class="todo-list" data-todo="list"></ul>`;
 
 export class TodoList extends HTMLElement {
 	constructor() {
@@ -192,13 +192,29 @@ export class TodoList extends HTMLElement {
 		this.attachShadow({ mode: "open" });
 	}
 
+  static get observedAttributes() { return ['filter']; }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === null) {
+      // first attribute change call, the template is not ready yet
+      return;
+    }
+    this.populateList();
+  }
+
+  populateList() {
+    this.shadowRoot.querySelector('[data-todo="list"]').innerHTML = getTodos(this.getAttribute('filter'));
+  }
+
 	connectedCallback() {
 		this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-		Todos.addEventListener("save", () => {
-			this.shadowRoot.querySelector('[data-todo="list"]').innerHTML = getTodos();
-		});
+    this.populateList();
 
+		Todos.addEventListener("save", () => {
+			this.populateList();
+		});
+    
     const list = this.shadowRoot.querySelector('[data-todo="list"]');
 
     delegate(list, '[data-todo="destroy"]', "click", (e) => {
