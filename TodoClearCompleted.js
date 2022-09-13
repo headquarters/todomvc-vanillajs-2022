@@ -48,17 +48,19 @@ export class TodoClearCompleted extends HTMLElement {
 
 		const clearCompleted = this.shadowRoot.querySelector('[data-todo="clear-completed"]');
 
-		Todos.addEventListener("save", () => {
-			clearCompleted.style.display = Todos.hasCompleted() ? "block" : "none"
-		});
+		Todos.addEventListener("save", this.setVisibility.bind(this));
 
     clearCompleted.addEventListener("click", () => {
       Todos.clearCompleted();
     })
 	}
 
+  setVisibility() {
+    this.shadowRoot.querySelector('[data-todo="clear-completed"]').style.display = Todos.hasCompleted() ? "block" : "none"
+  }
+
 	disconnectedCallback() {
-		// TODO: Todos.removeEventListener("save")
+		Todos.removeEventListener("save", this.setVisibility.bind(this));
 	}
 }
 

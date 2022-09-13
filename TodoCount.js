@@ -27,16 +27,18 @@ export class TodoCount extends HTMLElement {
 		this.attachShadow({ mode: "open" });
 	}
 
+	setCount() {
+		this.shadowRoot.querySelector('[data-todo="count"]').innerHTML = getCountString();
+	}
+
 	connectedCallback() {
 		this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-		Todos.addEventListener("save", () => {
-			this.shadowRoot.querySelector('[data-todo="count"]').innerHTML = getCountString();
-		});
+		Todos.addEventListener("save", this.setCount.bind(this));
 	}
 
 	disconnectedCallback() {
-		// TODO: Todos.removeEventListener("save")
+		Todos.removeEventListener("save", this.setCount.bind(this));
 	}
 }
 

@@ -45,6 +45,12 @@ template.innerHTML = `
 		box-shadow: 0 0 2px 2px #CF7D7D;
 		outline: 0;
 	}
+
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		.toggle-all {
+			background: none;
+		}
+	}
   </style>
   
   <input id="toggle-all" class="toggle-all" type="checkbox" ${Todos.isAllCompleted() ? "checked" : ""} data-todo="toggle-all" />
@@ -61,17 +67,19 @@ export class TodoToggleAll extends HTMLElement {
 
 		const toggleAll = this.shadowRoot.querySelector('[data-todo="toggle-all"]');
 
-		Todos.addEventListener("save", () => {
-			toggleAll.checked = Todos.isAllCompleted();
-		});
+		Todos.addEventListener("save", this.toggleChecked.bind(this));
 
 		toggleAll.addEventListener("click", () => {
 			Todos.toggleAll();
 		});
 	}
 
+	toggleChecked() {
+		this.shadowRoot.querySelector('[data-todo="toggle-all"]').checked = Todos.isAllCompleted();
+	}
+
 	disconnectedCallback() {
-		// TODO: Todos.removeEventListener("save")
+		Todos.removeEventListener("save", this.toggleChecked.bind(this));
 	}
 }
 

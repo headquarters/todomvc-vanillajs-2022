@@ -181,7 +181,16 @@ template.innerHTML = `
       box-shadow: 0 0 2px 2px #CF7D7D;
       outline: 0;
     }
+
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+      .todo-list li .toggle {
+        background: none;
+      }
     
+      .todo-list li .toggle {
+        height: 40px;
+      }
+    }
   </style>
 
   <ul class="todo-list" data-todo="list"></ul>`;
@@ -211,9 +220,7 @@ export class TodoList extends HTMLElement {
 
     this.populateList();
 
-		Todos.addEventListener("save", () => {
-			this.populateList();
-		});
+		Todos.addEventListener("save", this.populateList.bind(this));
     
     const list = this.shadowRoot.querySelector('[data-todo="list"]');
 
@@ -230,6 +237,7 @@ export class TodoList extends HTMLElement {
     });
 
     delegate(list, '[data-todo="label"]', "dblclick", (e) => {
+      console.log("DBLCLICK");
       const item = e.target.closest('[data-id]');
       item.classList.add("editing");
       item.querySelector('[data-todo="edit"]').focus();
@@ -260,7 +268,7 @@ export class TodoList extends HTMLElement {
 	}
 
 	disconnectedCallback() {
-		// TODO: Todos.removeEventListener("save")
+    Todos.removeEventListener("save", this.populateList.bind(this));
 	}
 }
 

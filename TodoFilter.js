@@ -32,6 +32,12 @@ template.innerHTML = `
     .filters li a.selected {
       border-color: #CE4646;
     }
+
+    @media (max-width: 430px) {
+      .filters {
+        bottom: 10px;
+      }
+    }
   </style>
 
   <ul class="filters" data-todo="filters">
@@ -52,7 +58,9 @@ export class TodoFilter extends HTMLElement {
 		this.attachShadow({ mode: "open" });
 	}
 
-	toggleFilterSelection(filter) {
+	toggleFilterSelection() {
+    const filter = getURLHash();
+
 		this.shadowRoot
 			.querySelectorAll('[data-todo="filters"] a')
 			.forEach((el) => el.classList.remove("selected"));
@@ -64,15 +72,13 @@ export class TodoFilter extends HTMLElement {
 	connectedCallback() {
 		this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-		this.toggleFilterSelection(getURLHash());
+		this.toggleFilterSelection();
 
-		window.addEventListener("hashchange", () => {
-			this.toggleFilterSelection(getURLHash());
-		});
+		window.addEventListener("hashchange", this.toggleFilterSelection.bind(this));
 	}
 
 	disconnectedCallback() {
-		// TODO: Todos.removeEventListener("save")
+		window.removeEventListener("hashchange", this.toggleFilterSelection.bind(this));
 	}
 }
 
