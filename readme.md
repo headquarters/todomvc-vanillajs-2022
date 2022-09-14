@@ -1,47 +1,19 @@
 # TodoMVC App Written in Vanilla JS with Web Components in 2022
 
-It seems straightforward to build reasonably complex things using only modern JavaScript these days! We can take advantage of most newer features without hacks or polyfills.
+Modern JavaScript has come a long way. One of the biggest improvements is the set of technologies that are involved in creating Web Components. The [Shadow DOM, Custom Elements, ES Modules, and HTML Templates](https://www.webcomponents.org/introduction) make up Web Components that encapsulate their own functionality, CSS, and DOM. 
 
-Here's my Vanilla JavaScript implementation:
+This Vanilla JS implementation of the TodoMVC app utilizes all of these technologies to structure the UI with Web Components. 
 
-- 184 lines of code total (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
+- 738 total lines of code total for all JS _& CSS_ (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
 - No build tools
 - JavaScript modules
 
-<a href="https://1marc.github.io/todomvc-vanillajs-2022/" target="_new">View the working example on GitHub pages</a>
-
-# Additional Examples
-
-## Initial Code
-
-The initial version came together in only 60 minutes, then ~30 min of refactoring: [see the commit here](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
-
-How quick it was to get working was what initially got me pumped about all of the progress in the core JavaScript language.
-
-## App Architecture
-
-People were concerned about the scalability of apps like this since there are no components, and it's all one App. So I extracted the TodoList and App components and wired the components together on the app-architecture branch.
-
-Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/app-architecture
-
-Note: I realize it is silly to say the word "scalable" in the context of a todo app, but this should be looked at as a blueprint for building something more extensive. I plan to make more ambitious examples in the future to show what's possible.
-
-
-Criticism, PRs, and feedback are welcome!
+<a href="https://headquarters.github.io/todomvc-vanillajs-2022/" target="_new">View the working example on GitHub pages</a>
 
 ## Project Blog Post:
 
 [<img alt="Modern Vanilla JavaScript TodoMVC in 2022 Article" width="750" src="https://static.frontendmasters.com/assets/blog/2022/vanilla-javascript-todomvc.jpg" />](https://frontendmasters.com/blog/vanilla-javascript-todomvc/)
 
-## Example Components Using this Architecture
-
-[Vanilla JavaScript View Switcher Based on Hash Change](https://codepen.io/1Marc/pen/poLmXZR)
-
-<a href="https://codepen.io/1Marc/pen/poLmXZR"><img src="https://user-images.githubusercontent.com/19269/189225506-1c1838e1-5b2a-408b-802a-dfe71b2f703c.png" width="500" /></a>
-
-[Vanilla JavaScript Countdown Clock](https://codepen.io/1Marc/pen/bGvPRdy)
-
-<a href="https://codepen.io/1Marc/pen/bGvPRdy"><img src="https://user-images.githubusercontent.com/19269/189225317-bb2ce1fb-a734-4193-beb1-670b5d6fbb04.png" width="500" /></a>
 
 ## License
 
