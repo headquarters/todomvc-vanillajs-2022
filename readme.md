@@ -4,7 +4,7 @@ Modern JavaScript has come a long way. One of the biggest improvements is the se
 
 This Vanilla JS implementation of the TodoMVC app utilizes all of these technologies to structure the UI with Web Components. 
 
-- 738 total lines of code total for all JS _& CSS_ (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
+- 343 lines of JS, 395 lines of CSS (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
 - No build tools
 - JavaScript modules
 
