@@ -1,5 +1,7 @@
 # TodoMVC App Written in Vanilla JS with Web Components in 2022
 
+Fork of [1Marc's Modern TodoMVC with Vanilla JS](https://github.com/1Marc/modern-todomvc-vanillajs) that converts the UI parts to use Web Components. 
+
 Modern JavaScript has come a long way. One of the biggest improvements is the set of technologies that are involved in creating Web Components. The [Shadow DOM, Custom Elements, ES Modules, and HTML Templates](https://www.webcomponents.org/introduction) make up Web Components that encapsulate their own functionality, CSS, and DOM. 
 
 This Vanilla JS implementation of the TodoMVC app utilizes all of these technologies to structure the UI with Web Components. 
@@ -9,10 +11,6 @@ This Vanilla JS implementation of the TodoMVC app utilizes all of these technolo
 - JavaScript modules
 
 <a href="https://headquarters.github.io/todomvc-vanillajs-2022/" target="_new">View the working example on GitHub pages</a>
-
-## Project Blog Post:
-
-[<img alt="Modern Vanilla JavaScript TodoMVC in 2022 Article" width="750" src="https://static.frontendmasters.com/assets/blog/2022/vanilla-javascript-todomvc.jpg" />](https://frontendmasters.com/blog/vanilla-javascript-todomvc/)
 
 
 ## License
